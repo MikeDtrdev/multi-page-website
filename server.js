@@ -22,13 +22,7 @@ app.get('/contact', (req, res) => {
 });
 
 app.get('/blog', (req, res) => {
-    fs.readFile(path.join(__dirname, 'data', 'post.json'), 'utf8', (err, data) => {
-        if (err) {
-            return res.status(500).send('Error reading posts');
-        }
-        const posts = JSON.parse(data);
-        res.render('blog', { posts });
-    });
+    res.sendFile(path.join(__dirname, 'views', 'blog.html'));
 });
 
 // Start the server
