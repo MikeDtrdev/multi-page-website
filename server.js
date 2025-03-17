@@ -1,12 +1,14 @@
 const express = require('express');
 const path = require('path');
-const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Serve static files from the "public" folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve static files from the "data" folder
+app.use('/data', express.static(path.join(__dirname, 'data')));
 
 // Define routes for different pages
 app.get('/', (req, res) => {
