@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,16 @@ app.get('/about', (req, res) => {
 
 app.get('/contact', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'contact.html'));
+});
+
+app.get('/blog', (req, res) => {
+    fs.readFile(path.join(__dirname, 'data', 'post.json'), 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Error reading posts');
+        }
+        const posts = JSON.parse(data);
+        res.render('blog', { posts });
+    });
 });
 
 // Start the server
